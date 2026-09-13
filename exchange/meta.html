@@ -9,6 +9,8 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 blockquote{margin:6px 0 10px;padding:6px 12px;border-left:3px solid #1f5e3f;background:#fff;font-family:ui-monospace,monospace;font-size:13px;white-space:pre-wrap}
 ul{padding-left:20px;margin:0 0 10px}li{margin-bottom:5px}
 .bad{border-left-color:#9a6212}
+.sev{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.sev.high{background:#fdecea;color:#b3261e}.sev.medium{background:#fbf3e4;color:#9a6212}.sev.low{background:#e8f3ec;color:#1f5e3f}
 @media(prefers-color-scheme:dark){body{background:#141715;color:#e6e9e3}a{color:#6fbf8e}blockquote{background:#1d211e;border-left-color:#6fbf8e}.bad{border-left-color:#e0a04a}th,td{border-color:#2e3430}th,.m{color:#8f978f}}
 </style>
 <main>
@@ -43,17 +45,18 @@ ul{padding-left:20px;margin:0 0 10px}li{margin-bottom:5px}
 </ul>
 
 <h2>Where the AI was wrong, and how it surfaced</h2>
+<p class=m>Severity: <span class="sev high">high</span> would have shipped a wrong research claim or exposed private data · <span class="sev medium">medium</span> a broken tool or an invalid exercise · <span class="sev low">low</span> wasted time or cosmetic.</p>
 <table>
-<tr><th>Mistake</th><th>Caught by</th></tr>
-<tr><td>Predicted the probe would learn negation; the first run said template. Later runs said negation and length.</td><td>Running the check instead of trusting the hypothesis. Both readings kept on the page.</td></tr>
-<tr><td>Recommended against the human's design.</td><td>The human. The design was better for this cohort; the AI's idea survived as content.</td></tr>
-<tr><td>Over-built the sharing mechanism, twice.</td><td>The human, with one-line prompts.</td></tr>
-<tr><td>Copied every skill silently, no consent.</td><td>The human asking one question.</td></tr>
-<tr><td>Introduced a variable-shadowing bug while adding reply capture.</td><td>The next run crashed. Fixed in a minute.</td></tr>
-<tr><td>Wrote a test with a wrong expected count.</td><td>The test failing; the code was right.</td></tr>
-<tr><td>Wrote a spoiler into the exercise's data generator.</td><td>Five simulated fellows all "finding" the confound suspiciously fast.</td></tr>
-<tr><td>Missed the human's mid-turn messages in the log extractor.</td><td>Writing this page and noticing the best prompts were absent.</td></tr>
-<tr><td>Estimated timestamps instead of reading the clock.</td><td>A <code>date</code> call. Log corrected.</td></tr>
+<tr><th>Severity</th><th>Mistake</th><th>Caught by</th></tr>
+<tr><td><span class="sev high">high</span></td><td>Predicted the probe would learn negation; the first run said template. Later runs said negation and length.</td><td>Running the check instead of trusting the hypothesis. Both readings kept on the page.</td></tr>
+<tr><td><span class="sev low">low</span></td><td>Recommended against the human's design.</td><td>The human. The design was better for this cohort; the AI's idea survived as content.</td></tr>
+<tr><td><span class="sev low">low</span></td><td>Over-built the sharing mechanism, twice.</td><td>The human, with one-line prompts.</td></tr>
+<tr><td><span class="sev high">high</span></td><td>Copied every skill silently, no consent.</td><td>The human asking one question.</td></tr>
+<tr><td><span class="sev medium">medium</span></td><td>Introduced a variable-shadowing bug while adding reply capture.</td><td>The next run crashed. Fixed in a minute.</td></tr>
+<tr><td><span class="sev low">low</span></td><td>Wrote a test with a wrong expected count.</td><td>The test failing; the code was right.</td></tr>
+<tr><td><span class="sev medium">medium</span></td><td>Wrote a spoiler into the exercise's data generator.</td><td>Five simulated fellows all "finding" the confound suspiciously fast.</td></tr>
+<tr><td><span class="sev medium">medium</span></td><td>Missed the human's mid-turn messages in the log extractor.</td><td>Writing this page and noticing the best prompts were absent.</td></tr>
+<tr><td><span class="sev low">low</span></td><td>Estimated timestamps instead of reading the clock.</td><td>A <code>date</code> call. Log corrected.</td></tr>
 </table>
 
 <h2>The pattern, if you want to copy it</h2>
