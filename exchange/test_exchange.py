@@ -85,6 +85,16 @@ check(r.returncode != 0 and "Traceback" not in r.stderr and "not found" in (r.st
 r = subprocess.run([sys.executable, str(SHARE), "x", "--project", str(tmp / "proj"), "--exchange", str(tmp), "--session", str(tmp / "missing.jsonl")], capture_output=True, text=True)
 check(r.returncode == 0 and "no Claude Code session found" in r.stdout, "missing session → skips log, still runs")
 
+# --- selection flags ---
+r = subprocess.run([sys.executable, str(SHARE), "eve", "--project", str(proj), "--exchange", str(tmp), "--session", str(sess), "--list"], capture_output=True, text=True)
+check(r.returncode == 0 and "SKILLS found" in r.stdout and "myskill" in r.stdout and not (ex / "logs/eve").exists(), "--list previews and writes nothing")
+r = subprocess.run([sys.executable, str(SHARE), "eve", "--project", str(proj), "--exchange", str(tmp), "--session", str(sess), "--skills", "none"], capture_output=True, text=True)
+check(r.returncode == 0 and not list((ex / "skills/eve").glob("*")) and list((ex / "logs/eve").glob("*")), "--skills none shares log only")
+r = subprocess.run([sys.executable, str(SHARE), "fay", "--project", str(proj), "--exchange", str(tmp), "--session", str(sess), "--no-log", "--skills", "myskill"], capture_output=True, text=True)
+check(r.returncode == 0 and (ex / "skills/fay/myskill.SKILL.md").exists() and not (ex / "logs/fay").glob("*-session.md").__next__ if False else r.returncode == 0 and (ex / "skills/fay/myskill.SKILL.md").exists() and not list((ex / "logs/fay").glob("*-session.md")), "--no-log --skills myskill shares the named skill only")
+r = subprocess.run([sys.executable, str(SHARE), "gus", "--project", str(proj), "--exchange", str(tmp), "--session", str(sess), "--skills", "nope"], capture_output=True, text=True)
+check(r.returncode != 0 and "not found" in (r.stderr + r.stdout) and not (ex / "logs/gus").exists(), "unknown skill name → error before writing anything")
+
 shutil.rmtree(tmp)
 print(f"\n{len(fails)} failure(s)")
 sys.exit(1 if fails else 0)

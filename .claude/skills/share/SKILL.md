@@ -1,14 +1,25 @@
 ---
 name: share
-description: Share what I typed in this session and my skills to the cohort exchange, then regenerate the comparison. Use when the user says "share my session", "post my log", or "/share".
+description: Post what I typed in this session and selected skills to the LASR cohort exchange, then rebuild the live comparison page. Use for "/share <name>", "share my session", "post my log".
 disable-model-invocation: true
 ---
-Share $ARGUMENTS's work to the exchange.
+Share $ARGUMENTS's session input and skills to the cohort exchange. Nothing is written or pushed
+without the user choosing what goes.
 
-1. Run `uv run python exchange/share.py $ARGUMENTS`. It writes only the user turns of the latest
-   session for this project to `exchange/logs/$ARGUMENTS/`, copies `.claude/skills/*/SKILL.md` to
-   `exchange/skills/$ARGUMENTS/`, and regenerates `exchange/COMPARISON.md` and `.html`.
-2. Open the new log file and show the user the first and last three turns. Ask them to confirm
-   nothing private is in it (API keys, unpublished results). Do not push until they say yes.
-3. On yes: `git add exchange && git commit -m "exchange: $ARGUMENTS shares session input and skills" && git push`.
-4. Tell them where to look: `exchange/COMPARISON.html`, one column per person.
+1. Preview. Run:
+   `uv run python exchange/share.py $ARGUMENTS --project "$PWD" --list`
+   It prints the user turns it found (first line of each) and the skills in this project's
+   `.claude/skills/`. It writes nothing. If it says no session was found, tell the user and continue
+   with skills only.
+2. Ask, with AskUserQuestion, two things:
+   - "Share the session log?" (yes / no). Remind them it contains only what they typed plus Claude's
+     text replies, no tool output or file contents, and ask if anything in the preview looks private.
+   - "Which skills?" as a multi-select over the skill names found, plus "none".
+   Do not assume; wait for the answers.
+3. Write. Re-run without `--list`, adding `--skills <comma-separated names or none>` and `--no-log` if they
+   declined the log. This clones the exchange repo to `~/lasr-exchange` on first use (from
+   `$LASR_EXCHANGE_REPO`; if unset, ask for the URL and pass `--repo`). It writes to
+   `exchange/logs/$ARGUMENTS/` and `exchange/skills/$ARGUMENTS/` and regenerates the comparison.
+4. Confirm. Show the paths written. Ask "Push to the exchange now?" Only on yes, re-run the same
+   command with `--push`.
+5. Tell them the push redeploys https://lasr-exchange.vercel.app within about a minute.

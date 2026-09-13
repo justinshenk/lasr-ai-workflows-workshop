@@ -39,7 +39,7 @@ Then, in any project, at the end of a session:
 ```
 /share <your-name>
 ```
-It posts **only what you typed** and Claude's text replies (no tool output, no file contents) plus your
+It previews what it found, asks whether to share the session log and **which** skills, then posts **only what you typed** and Claude's text replies (no tool output, no file contents) plus the chosen
 `.claude/skills/*/SKILL.md` to `exchange/logs/<you>/` and `exchange/skills/<you>/`, asks you to confirm
 nothing private is in the log, pushes, and rebuilds the comparison. Every push redeploys it to
 **https://lasr-exchange.vercel.app**: one column per person,

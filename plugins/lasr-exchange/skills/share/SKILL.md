@@ -1,17 +1,25 @@
 ---
 name: share
-description: Post what I typed in this session and my project's skills to the LASR cohort exchange, then regenerate the one-view comparison. Use for "/share <name>", "share my session", "post my log".
+description: Post what I typed in this session and selected skills to the LASR cohort exchange, then rebuild the live comparison page. Use for "/share <name>", "share my session", "post my log".
 disable-model-invocation: true
 ---
-Share $ARGUMENTS's session input and skills to the cohort exchange.
+Share $ARGUMENTS's session input and skills to the cohort exchange. Nothing is written or pushed
+without the user choosing what goes.
 
-1. Run:
-   `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/share.py" $ARGUMENTS --project "$PWD"`
-   It clones the exchange repo to `~/lasr-exchange` on first use (from `$LASR_EXCHANGE_REPO`), writes
-   ONLY the user turns of this project's latest session to `exchange/logs/$ARGUMENTS/`, copies
-   `.claude/skills/*/SKILL.md` to `exchange/skills/$ARGUMENTS/`, and regenerates `COMPARISON.md`/`.html`.
-   If it exits saying no repo is configured, ask the user for the exchange repo URL and re-run with `--repo <url>`.
-2. Show the user the first three and last three lines of the new log file. Ask them to confirm nothing
-   private is in it (API keys, unpublished results). Do not push until they say yes.
-3. On yes, re-run the same command with `--push`.
-4. Tell them: the push redeploys https://lasr-exchange.vercel.app (about a minute); locally, `~/lasr-exchange/exchange/COMPARISON.html`.
+1. Preview. Run:
+   `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/share.py" $ARGUMENTS --project "$PWD" --list`
+   It prints the user turns it found (first line of each) and the skills in this project's
+   `.claude/skills/`. It writes nothing. If it says no session was found, tell the user and continue
+   with skills only.
+2. Ask, with AskUserQuestion, two things:
+   - "Share the session log?" (yes / no). Remind them it contains only what they typed plus Claude's
+     text replies, no tool output or file contents, and ask if anything in the preview looks private.
+   - "Which skills?" as a multi-select over the skill names found, plus "none".
+   Do not assume; wait for the answers.
+3. Write. Re-run without `--list`, adding `--skills <comma-separated names or none>` and `--no-log` if they
+   declined the log. This clones the exchange repo to `~/lasr-exchange` on first use (from
+   `$LASR_EXCHANGE_REPO`; if unset, ask for the URL and pass `--repo`). It writes to
+   `exchange/logs/$ARGUMENTS/` and `exchange/skills/$ARGUMENTS/` and regenerates the comparison.
+4. Confirm. Show the paths written. Ask "Push to the exchange now?" Only on yes, re-run the same
+   command with `--push`.
+5. Tell them the push redeploys https://lasr-exchange.vercel.app within about a minute.

@@ -1,6 +1,8 @@
 """Post what you typed in your latest Claude Code session, plus your project's skills, to the cohort exchange.
 
-    python share.py <your-name> [--project DIR] [--exchange DIR] [--repo URL] [--session latest|PATH] [--push]
+    python share.py <your-name> --list                       # show what WOULD be shared; writes nothing
+    python share.py <your-name> [--skills all|none|a,b] [--no-log] [--project DIR] [--exchange DIR]
+                                [--repo URL] [--session latest|PATH] [--push]
 
 Defaults: --project = current directory; --exchange = ~/lasr-exchange (cloned from --repo or
 $LASR_EXCHANGE_REPO if missing). Writes ONLY user turns: no assistant output, tool results or file contents.
@@ -48,9 +50,32 @@ def main():
     ap.add_argument("--repo", default=os.environ.get("LASR_EXCHANGE_REPO", ""))
     ap.add_argument("--session", default="latest")
     ap.add_argument("--push", action="store_true")
+    ap.add_argument("--list", action="store_true", help="print the session summary and skills found, write nothing")
+    ap.add_argument("--skills", default="all", help="all | none | comma-separated skill names to share")
+    ap.add_argument("--no-log", action="store_true", help="share skills only, not the session")
     a = ap.parse_args()
 
     project, exchange = Path(a.project).resolve(), Path(a.exchange).expanduser().resolve()
+    found = sorted((project / ".claude" / "skills").glob("*/SKILL.md"))
+    if a.list:
+        sess = latest_session(project) if a.session == "latest" else Path(a.session)
+        if sess and sess.exists():
+            pairs = turn_pairs(sess)
+            print(f"SESSION {sess} — {len(pairs)} user turns")
+            for i, (u, _) in enumerate(pairs, 1): print(f"  {i}. {u.splitlines()[0][:100]}")
+        else: print("SESSION none found for this project")
+        print(f"SKILLS found in {project / '.claude/skills'}: {len(found)}")
+        for sk in found:
+            m = re.search(r"^description:\s*(.+)$", sk.read_text(errors="replace"), re.M)
+            print(f"  - {sk.parent.name}: {(m.group(1) if m else '').strip()[:100]}")
+        return
+    if a.skills == "none": chosen = []
+    elif a.skills == "all": chosen = found
+    else:
+        want = {x.strip() for x in a.skills.split(",") if x.strip()}
+        chosen = [sk for sk in found if sk.parent.name in want]
+        missing = want - {sk.parent.name for sk in chosen}
+        if missing: sys.exit(f"skills not found in this project: {', '.join(sorted(missing))}")
     if not exchange.exists():
         if not a.repo: sys.exit(f"{exchange} not found and no --repo / $LASR_EXCHANGE_REPO to clone from.")
         subprocess.run(["git", "clone", a.repo, str(exchange)], check=True)
@@ -59,8 +84,10 @@ def main():
     logdir, skdir = root / "logs" / name, root / "skills" / name
     logdir.mkdir(parents=True, exist_ok=True); skdir.mkdir(parents=True, exist_ok=True)
 
-    sess = latest_session(project) if a.session == "latest" else Path(a.session)
-    if sess and sess.exists():
+    sess = None if a.no_log else (latest_session(project) if a.session == "latest" else Path(a.session))
+    if a.no_log:
+        print("log: skipped (--no-log)")
+    elif sess and sess.exists():
         pairs = turn_pairs(sess)
         out = logdir / f"{datetime.date.today()}-session.md"
         blocks = []
@@ -72,10 +99,9 @@ def main():
     else:
         print("no Claude Code session found for this project; skipping log")
 
-    n = 0
-    for sk in (project / ".claude" / "skills").glob("*/SKILL.md"):
-        shutil.copy(sk, skdir / f"{sk.parent.name}.SKILL.md"); n += 1
-    print(f"copied {n} skill(s) to {skdir}")
+    for sk in chosen:
+        shutil.copy(sk, skdir / f"{sk.parent.name}.SKILL.md")
+    print(f"copied {len(chosen)} skill(s) to {skdir}: {', '.join(sk.parent.name for sk in chosen) or '-'}")
 
     cmp = root / "compare.py" if (root / "compare.py").exists() else Path(__file__).with_name("compare.py")
     subprocess.run([sys.executable, str(cmp), str(root)], check=False)
