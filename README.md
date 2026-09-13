@@ -29,11 +29,11 @@ perfect probe with no card.
 
 ## Sharing and comparing (the exchange)
 
-Install the plugin once (after this repo is on GitHub; replace the org/repo):
+Install the plugin once:
 ```
-/plugin marketplace add <org>/<repo>
+/plugin marketplace add justinshenk/lasr-ai-workflows-workshop
 /plugin install lasr-exchange@lasr-exchange
-export LASR_EXCHANGE_REPO=git@github.com:<org>/<repo>.git   # where /share pushes
+export LASR_EXCHANGE_REPO=git@github.com:justinshenk/lasr-ai-workflows-workshop.git   # where /share pushes
 ```
 Then, in any project, at the end of a session:
 ```
