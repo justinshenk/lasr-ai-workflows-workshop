@@ -1,0 +1,12 @@
+{
+  "name": "lasr-exchange",
+  "description": "LASR Labs cohort tools: share session input and skills, compare in one view.",
+  "owner": { "name": "Justin Shenk" },
+  "plugins": [
+    {
+      "name": "lasr-exchange",
+      "description": "/share <name>: post your session's user input and your skills to the cohort exchange; rebuild the comparison.",
+      "source": "./plugins/lasr-exchange"
+    }
+  ]
+}

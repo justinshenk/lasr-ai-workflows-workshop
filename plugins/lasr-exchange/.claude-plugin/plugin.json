@@ -1,0 +1,6 @@
+{
+  "name": "lasr-exchange",
+  "version": "0.1.0",
+  "description": "One command, /share <name>, posts what you typed in your Claude Code session and your project's skills to the LASR cohort exchange and rebuilds the side-by-side comparison.",
+  "author": { "name": "Justin Shenk" }
+}
