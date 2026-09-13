@@ -34,6 +34,11 @@ def turn_pairs(p: Path):
         try: d = json.loads(line)
         except Exception: continue
         if d.get("isMeta"): continue
+        if d.get("type") == "attachment":                       # a message the user typed mid-turn
+            att = d.get("attachment") or {}
+            if att.get("type") == "queued_command" and att.get("prompt", "").strip():
+                pairs.append([att["prompt"].strip(), ""])
+            continue
         t = _text(d.get("message", {}).get("content")).strip()
         if not t: continue
         if d.get("type") == "user":

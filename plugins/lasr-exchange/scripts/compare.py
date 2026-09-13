@@ -26,6 +26,11 @@ def pairs_jsonl(p):
         try: d = json.loads(line)
         except Exception: continue
         if d.get("isMeta"): continue
+        if d.get("type") == "attachment":                       # a message the user typed mid-turn
+            att = d.get("attachment") or {}
+            if att.get("type") == "queued_command" and att.get("prompt", "").strip():
+                pairs.append([att["prompt"].strip(), ""])
+            continue
         t = _text(d.get("message", {}).get("content")).strip()
         if not t: continue
         if d.get("type") == "user":
@@ -126,7 +131,7 @@ ul,ol{{margin:0;padding-left:20px}}li{{margin-bottom:8px;word-break:break-word}}
 details pre{{white-space:pre-wrap;font:12px/1.45 ui-monospace,monospace;background:#f0f2ec;padding:8px;border-radius:3px;margin:4px 0 0;max-height:320px;overflow:auto}}
 code{{background:#f0f2ec;padding:1px 4px;border-radius:3px}}
 @media(prefers-color-scheme:dark){{body{{background:#141715;color:#e6e9e3}}section{{background:#1d211e;border-color:#2e3430}}code,details pre{{background:#171b18}}.pr li{{border-left-color:#2e3430}}.pr li.chk{{border-left-color:#6fbf8e}}summary{{color:#6fbf8e}}}}</style>
-<h1>Exchange comparison</h1><p class=lede>One column per person. Green bar = the prompt mentions a check, test, control or baseline. Open "Claude's reply" under any prompt. Regenerate with <code>python exchange/compare.py</code>.</p>
+<h1>Exchange comparison</h1><p class=lede>One column per person. Green bar = the prompt mentions a check, test, control or baseline. Open "Claude's reply" under any prompt. <a href="meta.html">Meta-review of the session that built this</a>. Regenerate with <code>python exchange/compare.py</code>.</p>
 <div class=grid>{''.join(cols)}</div>"""
     (ROOT / "COMPARISON.html").write_text(page)
     (ROOT / "index.html").write_text(page)   # so a static host serves it at /

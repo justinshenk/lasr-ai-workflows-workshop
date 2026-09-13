@@ -10,7 +10,7 @@ ul,ol{margin:0;padding-left:20px}li{margin-bottom:8px;word-break:break-word}
 details pre{white-space:pre-wrap;font:12px/1.45 ui-monospace,monospace;background:#f0f2ec;padding:8px;border-radius:3px;margin:4px 0 0;max-height:320px;overflow:auto}
 code{background:#f0f2ec;padding:1px 4px;border-radius:3px}
 @media(prefers-color-scheme:dark){body{background:#141715;color:#e6e9e3}section{background:#1d211e;border-color:#2e3430}code,details pre{background:#171b18}.pr li{border-left-color:#2e3430}.pr li.chk{border-left-color:#6fbf8e}summary{color:#6fbf8e}}</style>
-<h1>Exchange comparison</h1><p class=lede>One column per person. Green bar = the prompt mentions a check, test, control or baseline. Open "Claude's reply" under any prompt. Regenerate with <code>python exchange/compare.py</code>.</p>
+<h1>Exchange comparison</h1><p class=lede>One column per person. Green bar = the prompt mentions a check, test, control or baseline. Open "Claude's reply" under any prompt. <a href="meta.html">Meta-review of the session that built this</a>. Regenerate with <code>python exchange/compare.py</code>.</p>
 <div class=grid><section><h2>hana</h2><p class=m>2 prompts · median 48 words · 2 mention a check</p><h3>Skills</h3><ul class=sk><li class=m>none yet</li></ul><h3>User input, in order</h3><ol class=pr><li class=chk><div class=u>I&#x27;ll do the modelling myself. Just give me a tiny script dump_acts.py that saves GPT-2 layer-6 mean-pooled activations and labels for data/train.json and data/ood.json to .npy files using extract.py (activations(texts, layer=6), load_split(path)). Run it with HF_HUB_OFFLINE=1 uv run python and confirm the shapes. Nothing else.</div><details><summary>Claude's reply · 58 words</summary><pre>I&#x27;ll check the two helper signatures in extract.py, write the script, and run it.
 
 Done. `dump_acts.py` is written and ran offline. It saved four files in the working directory: `train_X.npy`, `train_y.npy`, `ood_X.npy`, `ood_y.npy`.
@@ -45,7 +45,7 @@ Your 100% is real for the train distribution, but it is not evidence of a sentim
 - Try last-token pooling or a later layer, since mean pooling over five tokens dilutes any compositional signal.
 - Rebuild the train set with negation balanced across both labels if you want to claim a sentiment direction rather than a negation direction.
 
-The honest one-line summary right now is &quot;found a negation/lexical-polarity direction that does not transfer to natural sentences,&quot; not &quot;sentiment direction found.&quot;</pre></details></li></ol></section><section><h2>justin</h2><p class=m>7 prompts · median 18 words · 1 mention a check</p><h3>Skills</h3><ul class=sk><li><code>sanity-check.SKILL.md</code> Before reporting any accuracy, probe score, or &quot;it works&quot; claim from an ML experiment, run the four checks below and grade the claim. Use whenever a result is a</li><li><code>share.SKILL.md</code> Share what I typed in this session and my skills to the cohort exchange, then regenerate the comparison. Use when the user says &quot;share my session&quot;, &quot;post my log</li></ul><h3>User input, in order</h3><ol class=pr><li><div class=u>This is for a worktest for Lasr labs research coordinator / manager. I&#x27;ll need to save process logs.</div><details><summary>Claude's reply · 174 words</summary><pre>I&#x27;ll take a look at what&#x27;s in the working directory first, then set up a process log so we capture the work as we go.
+The honest one-line summary right now is &quot;found a negation/lexical-polarity direction that does not transfer to natural sentences,&quot; not &quot;sentiment direction found.&quot;</pre></details></li></ol></section><section><h2>justin</h2><p class=m>30 prompts · median 14 words · 4 mention a check</p><h3>Skills</h3><ul class=sk><li><code>sanity-check.SKILL.md</code> Before reporting any accuracy, probe score, or &quot;it works&quot; claim from an ML experiment, run the four checks below and grade the claim. Use whenever a result is a</li><li><code>share.SKILL.md</code> Share what I typed in this session and my skills to the cohort exchange, then regenerate the comparison. Use when the user says &quot;share my session&quot;, &quot;post my log</li></ul><h3>User input, in order</h3><ol class=pr><li><div class=u>This is for a worktest for Lasr labs research coordinator / manager. I&#x27;ll need to save process logs.</div><details><summary>Claude's reply · 174 words</summary><pre>I&#x27;ll take a look at what&#x27;s in the working directory first, then set up a process log so we capture the work as we go.
 
 The working directory is empty, so I created `PROCESS_LOG.md` in it with a header and a first timestamped entry. Every step from here on gets appended there with a timestamp, what was done, why, and the outcome.
 
@@ -107,9 +107,7 @@ Everything else that doesn&#x27;t depend on those is either done or running.
 
 The environment is ready and verified. GPT-2 loads offline and produces hidden states in under a second, so the worked example can run live on your laptop with no API cost or GPU.
 
-I&#x27;m blocked only on your two calls: the direction (verification-first loop vs. peer-sharing) and any notes from Richie&#x27;s talk. The moment you give the direction, I start building.</pre></details></li><li><div class=u>I still think peer-sharing is valuable, particularly for researchers who may tend to work independently. i&#x27;d consider including those resources as high level advice, and ask people what has worked for them, along with a worked example.</div><details><summary>Claude's reply · 454 words</summary><pre>Understood, peer-sharing stays as the core and the research is folded in as high-level advice. That&#x27;s your call and it&#x27;s a defensible one: fellows in small teams who work independently benefit from seeing each other&#x27;s habits. I&#x27;ll now build it as strongly as the brief allows. Logging the decision and starting.
-
-Everything is rebuilt around the simpler design and reconciled across the plan and the submission draft. Time is 13:45, so 45 minutes used and over two hours left.
+I&#x27;m blocked only on your two calls: the direction (verification-first loop vs. peer-sharing) and any notes from Richie&#x27;s talk. The moment you give the direction, I start building.</pre></details></li><li><div class=u>I still think peer-sharing is valuable, particularly for researchers who may tend to work independently. i&#x27;d consider including those resources as high level advice, and ask people what has worked for them, along with a worked example.</div><details><summary>Claude's reply · 51 words</summary><pre>Understood, peer-sharing stays as the core and the research is folded in as high-level advice. That&#x27;s your call and it&#x27;s a defensible one: fellows in small teams who work independently benefit from seeing each other&#x27;s habits. I&#x27;ll now build it as strongly as the brief allows. Logging the decision and starting.</pre></details></li><li><div class=u>wondering if the results can be collated to a frontend page somewhere for review and annotation</div><p class=m>no text reply captured</p></li><li><div class=u>no, simpler. i&#x27;d like to allow people to share their skills, upload their logs</div><details><summary>Claude's reply · 403 words</summary><pre>Everything is rebuilt around the simpler design and reconciled across the plan and the submission draft. Time is 13:45, so 45 minutes used and over two hours left.
 
 **The exchange is live:** https://claude.ai/code/artifact/06b26db1-b355-429c-8b36-04e68f65c870
 
@@ -140,7 +138,208 @@ There are two genuinely simple ways, and both beat the custom page.
 
 **The custom page** stays published either way. I&#x27;d drop it from the plan and mention it in Part 3 as something I built and then simplified away, which is a fair thing for the graders to see.
 
-Tell me which one. For the repo, say whether it should be public or private, and whether the name `lasr-ai-workflows-workshop` is fine, and I&#x27;ll create it, push, and update the plan and draft to point at it.</pre></details></li><li><div class=u>then to compare the process logs and skills in one view? particularly user input</div><details><summary>Claude's reply · 69 words</summary><pre>That&#x27;s the real need: put everyone&#x27;s prompts side by side. The most revealing comparison is what each person typed, not what the model produced. A small script in the repo can do that: read every log in `exchange/logs/`, pull out the user turns, list each person&#x27;s skills, and render one comparison page. Let me check the real Claude Code log format first so the parser works on actual exports.</pre></details></li></ol></section><section><h2>priya</h2><p class=m>1 prompts · median 78 words · 1 mention a check</p><h3>Skills</h3><ul class=sk><li class=m>none yet</li></ul><h3>User input, in order</h3><ol class=pr><li class=chk><div class=u>10-minute exercise. Goal: a linear probe for sentiment on GPT-2 layer-6 activations, held-out accuracy, plus one sanity check that the direction is about sentiment. Before writing any code, list the three most likely ways a probe like this could give a misleading accuracy on this data (look at data/train.json and data/ood.json first). Then write probe_p.py, train it, and test the top two risks from your list. extract.py has activations(texts, layer=6) and load_split(path). Run with HF_HUB_OFFLINE=1 uv run python.</div><details><summary>Claude's reply · 355 words</summary><pre>I&#x27;ll look at the data and extract.py first, then list the risks before writing the probe.
+Tell me which one. For the repo, say whether it should be public or private, and whether the name `lasr-ai-workflows-workshop` is fine, and I&#x27;ll create it, push, and update the plan and draft to point at it.</pre></details></li><li><div class=u>then to compare the process logs and skills in one view? particularly user input</div><details><summary>Claude's reply · 69 words</summary><pre>That&#x27;s the real need: put everyone&#x27;s prompts side by side. The most revealing comparison is what each person typed, not what the model produced. A small script in the repo can do that: read every log in `exchange/logs/`, pull out the user turns, list each person&#x27;s skills, and render one comparison page. Let me check the real Claude Code log format first so the parser works on actual exports.</pre></details></li><li><div class=u>also a way to automate that uploading via a plugin?</div><p class=m>no text reply captured</p></li><li><div class=u>so that each user can just download the claude plugin and it allows sharing?</div><p class=m>no text reply captured</p></li><li><div class=u>also add claude output as dropdown under each user input</div><details><summary>Claude's reply · 332 words</summary><pre>Done. It&#x27;s 13:56, so 56 minutes used. The plugin exists, validates, and the full loop has run once on your own session. The comparison page should be open in your browser now.
+
+**What a fellow does**
+
+1. Once: add the repo as a plugin marketplace and install `lasr-exchange`. Two slash commands, listed in the README.
+2. At the end of any session, in any project: `/share &lt;name&gt;`. The skill extracts only what they typed plus Claude&#x27;s text replies, never tool output or file contents, copies their skill files, shows them the log, and pushes only after they confirm nothing private is in it.
+3. Everyone opens `COMPARISON.html`: one column per person, prompts in order, each Claude reply as a dropdown under its prompt, and a green bar on any prompt that mentions a check, test, control or baseline.
+
+**Seeded with your real data.** Your column shows the seven things you&#x27;ve typed to me this session, with my replies underneath, including &quot;is there not a simple way&quot; and &quot;no, simpler&quot;. That&#x27;s a strong worked example for the graders: the comparison view literally shows you steering the AI.
+
+**Honest notes for the process log.** I introduced one bug while adding the reply capture, a loop variable that clobbered the argument parser. The first run caught it and I fixed it. Both are in the log. Also, the plugin marketplace validates, but I haven&#x27;t installed it end to end via `/plugin install` since that needs the repo on GitHub first.
+
+**What I need from you now**
+
+1. **GitHub push.** Say the word and I create the repo and push. Name and public or private are your call. My default would be `lasr-ai-workflows-workshop`, private, shared with the LASR reviewers. Until it&#x27;s pushed, the install steps in the README have placeholder org and repo names.
+2. Richie&#x27;s talk: two or three lines for Part 3.
+3. Screenshots: the probe run output and the comparison page.
+4. Then paste the draft, plan, and log into the Google Doc.</pre></details></li><li class=chk><div class=u>verify the code</div><details><summary>Claude's reply · 38 words</summary><pre>I&#x27;ll verify it properly: compile everything, run the probe again and diff against the saved output, and exercise the share and compare scripts on synthetic logs in all three supported formats with multiple people, including an HTML-escaping check.</pre></details></li><li><div class=u>skip richie&#x27;s talk</div><details><summary>Claude's reply · 351 words</summary><pre>Verified. Everything passes, and the checks are committed as a test file in the repo. Richie&#x27;s talk is removed from the draft.
+
+**What I ran**
+
+- **Compile check** on all seven Python files. Clean.
+- **Plugin manifest validation** with the Claude Code CLI. Passes for both the marketplace and the plugin.
+- **Probe reproducibility.** Re-ran the probe and diffed against the saved output from earlier. Byte-identical, so the numbers in the worked example are stable.
+- **End-to-end synthetic test** of the share and compare scripts, now saved as `exchange/test_exchange.py`. It builds a temporary exchange with three fake people, one per supported log format, then runs the real scripts against it.
+
+**What the test proves**
+
+| Check | Result |
+|---|---|
+| User turns extracted from Claude Code JSONL; tool results, meta lines, system reminders skipped | pass |
+| The `&gt;` and `⏺` text format, and the `User:`/`Assistant:` format, both parse | pass |
+| Tool output and tool-call inputs never reach the log or the page | pass |
+| User and assistant text is HTML-escaped, so a pasted `&lt;script&gt;` can&#x27;t run | pass |
+| One column per person, one dropdown per captured reply | pass |
+| Share script&#x27;s own output round-trips through the comparison identically to the raw JSONL | pass |
+| Names sanitised for folder paths, project skills copied, comparison regenerated | pass |
+| Missing exchange directory gives a clean error, not a traceback | pass |
+| Missing session skips the log but still shares skills | pass |
+
+Twenty-four checks in total. One failed on the first run, and it was my test expectation that was wrong, not the code: I&#x27;d counted a reply for a prompt that has none. Both the failure and the correction are in the process log.
+
+**Not verified:** the `/plugin install` flow end to end, since that needs the repo on GitHub. The pieces it depends on are validated, and the skill runs the same script the test exercises.
+
+Remaining items are yours: the GitHub push decision, two screenshots, and pasting into the Google Doc. It&#x27;s 13:58.</pre></details></li><li><div class=u>push</div><details><summary>Claude's reply · 131 words</summary><pre>Creating the repo under your GitHub account as private with the default name, and pushing.
+
+Pushed. The repo is live at https://github.com/justinshenk/lasr-ai-workflows-workshop, private, on your account, with all seven commits. The README now has the real install commands, and the plan and submission draft link to it.
+
+One thing to decide before you submit: the reviewers can&#x27;t open a private repo. Either make it public, which I can do in one command, or add their GitHub account as a collaborator once you know it. The submission goes to contact@arcadiaimpact.org, and that email isn&#x27;t a GitHub handle, so public is the safer bet if you&#x27;re happy with that.
+
+It&#x27;s 14:00. One hour used. Left for you: the visibility call, two screenshots, and pasting the draft, plan, and log into the Google Doc.</pre></details></li><li><div class=u>dont send submissions there, this will be only for the workshop. ideally what is uploaded via the plugin pushes to a vercel page</div><details><summary>Claude's reply · 330 words</summary><pre>Understood: the Google Doc is the submission, and the repo is workshop infrastructure only. And the comparison should be a live page that updates when someone runs `/share`. Vercel serving the repo&#x27;s `exchange/` folder as a static site does that with zero build. Let me check whether the Vercel CLI is set up here.
+
+Done. The whole loop now ends on a live page.
+
+**Live comparison page:** https://lasr-exchange.vercel.app
+
+It serves the `exchange/` folder of the repo as a static site. The GitHub repo is connected to the Vercel project, and I confirmed it works: the two pushes I made after connecting each produced a new production deployment automatically, in about a second each. So when a fellow runs `/share &lt;name&gt;`, the skill regenerates the comparison, pushes, and the page updates within a minute. The share skill and README now say so.
+
+**Recap of the mechanism as it stands**
+
+- Fellow installs the plugin once from the repo.
+- `/share &lt;name&gt;` at the end of a session extracts only what they typed and Claude&#x27;s text replies, copies their skills, shows them the log, and pushes after they confirm.
+- The push redeploys the page: one column per person, prompts in order, each reply as a dropdown, prompts mentioning a check highlighted.
+
+**Two things to be aware of**
+
+- The Vercel page is public by default. The content is only user prompts, Claude&#x27;s prose replies, and skill files, and the skill makes people confirm before pushing. If you want it locked, Vercel&#x27;s deployment protection is a single toggle in the project settings.
+- The repo stays private and is workshop infrastructure only. I&#x27;ve removed the &quot;shared with reviewers&quot; phrasing from the plan and draft. The submission is the Google Doc, which links to the repo and the live page.
+
+It&#x27;s 14:05. One hour five minutes used. What&#x27;s left is yours: two screenshots, ideally the probe output and the live page, then paste the draft, plan, and process log into the Google Doc.</pre></details></li><li><div class=u>does the plugin allow selecting which skills to share or confirm with user they wnat to share them?</div><details><summary>Claude's reply · 236 words</summary><pre>No. Right now it copies every skill in the project&#x27;s `.claude/skills/` without asking, and only confirms the log before pushing. That&#x27;s a gap. I&#x27;ll fix it so the skill lists what it found, asks which skills to share and whether to include the log, and pushes only after a final confirmation.
+
+Fixed and pushed. It didn&#x27;t before, and now it does.
+
+**What `/share &lt;name&gt;` does now**
+
+1. **Preview.** Runs the script in list mode, which writes nothing. It prints the first line of each user turn it found and every skill in the project&#x27;s `.claude/skills/`, with descriptions.
+2. **Ask.** Uses a question prompt for two decisions: share the session log, yes or no, with a reminder of what it contains and a nudge to look for anything private in the preview. And which skills, as a multi-select over the names found, plus &quot;none&quot;.
+3. **Write** only what was chosen, using the new `--skills` and `--no-log` flags.
+4. **Confirm again** before pushing. The push is what redeploys the live page.
+
+**Verified.** Four new checks added to the test suite, 28 total, all passing: list mode writes nothing, &quot;none&quot; shares the log only, a named skill with no log shares just that skill, and an unknown skill name errors out before touching anything. The README describes the new flow.
+
+It&#x27;s 14:07. One hour seven minutes used. Nothing is pending on my side. Yours: screenshots and the Google Doc.</pre></details></li><li class=chk><div class=u>give me the assignemnt to test</div><details><summary>Claude's reply · 333 words</summary><pre>Here&#x27;s the assignment exactly as a fellow would get it. Run it in a fresh Claude Code session inside `probe-demo`, with a 10-minute timer, using your normal habits. Don&#x27;t look at `probe.py` or `worked_example/` first, since that&#x27;s the answer key.
+
+**Setup, already done on this machine**
+
+```
+cd ~/projects/lasr-worktest/probe-demo
+uv run python data/make_data.py
+claude
+```
+
+**The task, 10 minutes**
+
+&gt; Train a linear probe that separates positive from negative sentences using GPT-2 layer-6 activations. Report held-out accuracy. Then do **one sanity check** that convinces you the direction is about sentiment and not something else. Use whatever AI tools you normally use, however you normally use them.
+
+What you have:
+
+- `data/train.json`: 60 labelled sentences. Split it however you like.
+- `data/ood.json`: 16 hand-written sentences. Use it or don&#x27;t. Your call.
+- `extract.py`: `activations(texts, layer=6)` returns an N by 768 array, and `load_split(path)` returns texts and labels. GPT-2 runs on CPU in seconds.
+
+What &quot;done&quot; looks like:
+
+1. A script that trains a probe and prints an accuracy.
+2. One sanity check and what it told you.
+
+A partial result with an honest account beats a perfect probe.
+
+**Afterwards, from the same session**
+
+```
+/share justin
+```
+
+It will preview what you typed and the skills it found, ask which to share and whether to include the log, then ask before pushing. The push redeploys https://lasr-exchange.vercel.app in about a minute, and your test run will appear as a second column next to the seeded one.
+
+One caveat: the project-level `/share` skill in `.claude/skills/` and the `/sanity-check` skill will both be visible to Claude in that session. If you want the honest &quot;unaided fellow&quot; experience, don&#x27;t invoke `/sanity-check` and see whether Claude volunteers a check on its own. That&#x27;s the thing worth noticing.
+
+Logged. It&#x27;s about 14:08. I&#x27;m waiting on your test run. When you&#x27;re done, tell me how it went, especially anything that broke or felt clunky in `/share`, and I&#x27;ll fix it and fold the result into the process log and Part 3.</pre></details></li><li class=chk><div class=u>simulate the test run, and share</div><details><summary>Claude's reply · 42 words</summary><pre>I&#x27;ll run a fresh, non-interactive Claude Code session in the repo with the assignment text as a fellow would type it, then share that session through the plugin script and push, so it lands on the live page as a second column.</pre></details></li><li><div class=u>&lt;task-notification&gt;
+&lt;task-id&gt;bm4c2j498&lt;/task-id&gt;
+&lt;tool-use-id&gt;toolu_01N93b68h2afYs9frvYkEgxb&lt;/tool-use-id&gt;
+&lt;output-file&gt;/private/tmp/claude-501/-Users-justinshenk-projects-lasr-worktest/e57ae99b-f05b-40f2-96cc-430f76648dba/tasks/bm4c2j498.output&lt;/output-file&gt;
+&lt;status&gt;completed&lt;/status&gt;
+&lt;summary&gt;Background command &quot;Run a fresh Claude Code session on the assignment as a simulated fellow&quot; completed (exit code 0)&lt;/summary&gt;
+&lt;/task-notification&gt;</div><details><summary>Claude's reply · 29 words</summary><pre>The simulated fellow session is running in the background. I&#x27;ll get a completion notification when it finishes, then share it as a second column and check the live page.</pre></details></li><li><div class=u>&lt;task-notification&gt;
+&lt;task-id&gt;b26okxagn&lt;/task-id&gt;
+&lt;tool-use-id&gt;toolu_011vr5NrzNx3U9J3fspHjLid&lt;/tool-use-id&gt;
+&lt;output-file&gt;/private/tmp/claude-501/-Users-justinshenk-projects-lasr-worktest/e57ae99b-f05b-40f2-96cc-430f76648dba/tasks/b26okxagn.output&lt;/output-file&gt;
+&lt;status&gt;completed&lt;/status&gt;
+&lt;summary&gt;Background command &quot;Wait for Vercel redeploy and confirm the live page has both columns&quot; completed (exit code 0)&lt;/summary&gt;
+&lt;/task-notification&gt;</div><details><summary>Claude's reply · 338 words</summary><pre>The end-to-end simulation worked, and it produced a result worth putting in the doc.
+
+**The live page now has two columns:** https://lasr-exchange.vercel.app. Yours, and &quot;sim-fellow&quot;, which appeared within seconds of the push through the git-connected redeploy.
+
+**What the simulated fellow did.** A fresh Claude Code session got the assignment text verbatim and was told not to open the answer key. In about three minutes it wrote `fellow_probe.py`, deduplicated the five repeated sentences in the training data, and reported the same headline numbers as my run.
+
+| Evaluation | Accuracy |
+|---|---|
+| Held-out, in distribution | 1.00 |
+| Shuffled labels, mean of 10 | 0.51 |
+| Hand-written OOD set | 0.56 |
+| Bare &quot;contains not&quot; rule | 0.80 |
+
+Then it went further than I did. It trained on negation-only negatives and tested on adjective negatives, scoring 0 of 11. It wrote counterfactuals like &quot;The film was not dull&quot; and the probe called all six negative. Its diagnosis was &quot;negation detector&quot;, graded unverified. Mine had been &quot;template detector&quot;. Same data, two honest readings, and the second is better supported. That&#x27;s now in the draft as the worked example&#x27;s punchline.
+
+**One caveat, logged and in the draft.** The session invoked the repo&#x27;s `/sanity-check` skill on its own, three times. So this simulates a fellow who has the skill installed, not an unaided one. That&#x27;s still a fair test, and arguably the more useful one: the skill changed the model&#x27;s default behaviour from &quot;report 1.00 neutrally&quot; to &quot;run four checks and grade the claim&quot;. It&#x27;s the whole argument for making checks reusable, and I&#x27;ve written it up that way in Part 3.
+
+**Also verified along the way:** the share script correctly picked up the one user turn plus Claude&#x27;s full text reply, excluded all tool output, and the `--skills none` path worked.
+
+It&#x27;s 14:13. One hour thirteen minutes used. Nothing is pending on my side. Yours: screenshots of the probe output and the live page, then paste the draft, plan, and process log into the Google Doc.</pre></details></li><li><div class=u>simulate a few more users, and upload their data</div><details><summary>Claude's reply · 83 words</summary><pre>I&#x27;ll simulate four more fellows with different working styles, each in its own clean copy of the repo without the `/sanity-check` skill, so these are unaided runs. Then I&#x27;ll share all four through the plugin script and push.
+
+Four simulated fellows are running in parallel. I&#x27;ll wait for their completion notifications, run hana&#x27;s second turn when hers finishes, then share all four and push.
+
+Hana&#x27;s second turn is running. Three other sessions are still in progress. Waiting for the completion notifications before sharing.</pre></details></li><li><div class=u>&lt;task-notification&gt;
+&lt;task-id&gt;bpij1ervw&lt;/task-id&gt;
+&lt;tool-use-id&gt;toolu_01YKdhhCvfaBY55MVMNcZZ7j&lt;/tool-use-id&gt;
+&lt;output-file&gt;/private/tmp/claude-501/-Users-justinshenk-projects-lasr-worktest/e57ae99b-f05b-40f2-96cc-430f76648dba/tasks/bpij1ervw.output&lt;/output-file&gt;
+&lt;status&gt;completed&lt;/status&gt;
+&lt;summary&gt;Background command &quot;Simulated fellow priya: plans risks before coding&quot; completed (exit code 0)&lt;/summary&gt;
+&lt;/task-notification&gt;</div><p class=m>no text reply captured</p></li><li><div class=u>&lt;task-notification&gt;
+&lt;task-id&gt;b6p7lfqik&lt;/task-id&gt;
+&lt;tool-use-id&gt;toolu_0188N3wGmuKUXLnn4oYxbfv9&lt;/tool-use-id&gt;
+&lt;output-file&gt;/private/tmp/claude-501/-Users-justinshenk-projects-lasr-worktest/e57ae99b-f05b-40f2-96cc-430f76648dba/tasks/b6p7lfqik.output&lt;/output-file&gt;
+&lt;status&gt;completed&lt;/status&gt;
+&lt;summary&gt;Background command &quot;Simulated fellow sam: asks Claude to break its own result&quot; completed (exit code 0)&lt;/summary&gt;
+&lt;/task-notification&gt;</div><p class=m>no text reply captured</p></li><li><div class=u>&lt;task-notification&gt;
+&lt;task-id&gt;bbn5ma0g0&lt;/task-id&gt;
+&lt;tool-use-id&gt;toolu_01JhEyFwqHuC6eFibaZuUXVH&lt;/tool-use-id&gt;
+&lt;output-file&gt;/private/tmp/claude-501/-Users-justinshenk-projects-lasr-worktest/e57ae99b-f05b-40f2-96cc-430f76648dba/tasks/bbn5ma0g0.output&lt;/output-file&gt;
+&lt;status&gt;completed&lt;/status&gt;
+&lt;summary&gt;Background command &quot;Simulated fellow hana, turn 2: asks whether 100% seems right&quot; completed (exit code 0)&lt;/summary&gt;
+&lt;/task-notification&gt;</div><p class=m>no text reply captured</p></li><li><div class=u>&lt;task-notification&gt;
+&lt;task-id&gt;bu1lsdnhq&lt;/task-id&gt;
+&lt;tool-use-id&gt;toolu_01LBWyEQ3SHUHCY5rt1qKeVh&lt;/tool-use-id&gt;
+&lt;output-file&gt;/private/tmp/claude-501/-Users-justinshenk-projects-lasr-worktest/e57ae99b-f05b-40f2-96cc-430f76648dba/tasks/bu1lsdnhq.output&lt;/output-file&gt;
+&lt;status&gt;completed&lt;/status&gt;
+&lt;summary&gt;Background command &quot;Commit and push all simulated fellows, then wait for the live page to show six columns&quot; completed (exit code 0)&lt;/summary&gt;
+&lt;/task-notification&gt;</div><details><summary>Claude's reply · 359 words</summary><pre>All six columns are live: https://lasr-exchange.vercel.app
+
+**The five simulated fellows**, each a fresh Claude Code session with a different prompt style. Four ran in clean copies of the repo with no skills installed.
+
+| Fellow | Style | Checks run | Diagnosis |
+|---|---|---|---|
+| sim-fellow | plain task, skill available | 4 | negation |
+| quinn | terse, no check requested | 1 | negation/template, one line, stopped |
+| priya | &quot;list the risks before coding&quot; | 2 planned | negation, via a 3.4-logit counterfactual |
+| sam | &quot;break your own result&quot; | 5 | negation and sentence length |
+| hana | hybrid, two turns, &quot;does 100% seem right?&quot; | 5 | negation and length |
+
+Every run got the same numbers, 1.00 held-out and 0.56 out of distribution. What varied was depth, and it tracked the prompt. Asking Claude to attack its own number, or simply asking whether the result seems right, produced the most checks and found a second confound: word count above four scores 0.82 on its own, because &quot;not&quot; adds a token. The terse request produced one caveat and stopped. That spread is exactly what the pair review is meant to surface, and it now sits side by side on the page with each reply as a dropdown.
+
+**Two things the simulation found that improve the workshop**
+
+- **The exercise had a leak.** The data generator&#x27;s docstring described the confound, and every Claude session read it. I removed the spoiler and pushed. The simulated runs all saw it, which is logged and stated in the draft.
+- **Prompt style is the variable.** Six runs of the same model on the same data, and the difference between one caveat and five checks was entirely in what the person typed. That&#x27;s the cleanest possible argument for the workshop&#x27;s framing, and it&#x27;s on the page.
+
+**Caveats, in the log and the draft:** these are Claude sessions, not humans, and the first simulated fellow had the sanity-check skill available and used it.
+
+It&#x27;s 14:18. One hour eighteen minutes used. The draft&#x27;s worked-example section now describes the six-column page. Yours: screenshots and the Google Doc.</pre></details></li><li><div class=u>fix the formatting on https://lasr-exchange.vercel.app/, the cards jutt off the right of the window</div><details><summary>Claude's reply · 88 words</summary><pre>Fix pushed. The columns now wrap into rows that fit the window, at least 360 pixels wide each, with each column scrolling vertically on its own. Nothing extends past the right edge. I&#x27;m waiting for Vercel to redeploy and will confirm when it&#x27;s live, usually within a few seconds.
+
+The layout fix is live at https://lasr-exchange.vercel.app. Columns wrap to fit the window instead of running off the right edge. Reload to see it. It&#x27;s about 14:21, one hour twenty-one minutes used, and nothing is pending on my side.</pre></details></li><li><div class=u>also do a meta-review of this session, for demonstrating in the workshop</div><details><summary>Claude's reply · 39 words</summary><pre>A meta-review is a good fit: the session itself is a worked example of a human steering an AI through a build. I&#x27;ll pull the actual user turns from this session&#x27;s log for accuracy, then write it up honestly.</pre></details></li><li><div class=u>on a separate page</div><p class=m>no text reply captured</p></li><li><div class=u>then create the google doc, keep it concise</div><p class=m>no text reply captured</p></li></ol></section><section><h2>priya</h2><p class=m>1 prompts · median 78 words · 1 mention a check</p><h3>Skills</h3><ul class=sk><li class=m>none yet</li></ul><h3>User input, in order</h3><ol class=pr><li class=chk><div class=u>10-minute exercise. Goal: a linear probe for sentiment on GPT-2 layer-6 activations, held-out accuracy, plus one sanity check that the direction is about sentiment. Before writing any code, list the three most likely ways a probe like this could give a misleading accuracy on this data (look at data/train.json and data/ood.json first). Then write probe_p.py, train it, and test the top two risks from your list. extract.py has activations(texts, layer=6) and load_split(path). Run with HF_HUB_OFFLINE=1 uv run python.</div><details><summary>Claude's reply · 355 words</summary><pre>I&#x27;ll look at the data and extract.py first, then list the risks before writing the probe.
 
 Done. The probe trains in seconds, and both risk tests ran. Script is `probe_p.py`.
 

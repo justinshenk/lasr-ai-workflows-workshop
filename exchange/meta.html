@@ -1,0 +1,70 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Meta-review: the session that built this</title>
+<style>
+body{margin:0;padding:24px 20px 60px;font:15px/1.55 system-ui,sans-serif;color:#1b1f1a;background:#f5f6f2;box-sizing:border-box;max-width:100vw;overflow-x:hidden}
+main{max-width:76ch;margin:0 auto}
+h1{font-size:24px;margin:0 0 6px;line-height:1.2}h2{font-size:17px;margin:28px 0 8px;letter-spacing:.02em}
+p{margin:0 0 10px}.m{color:#6f776f;font-size:13px}a{color:#1f5e3f}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0 14px}th,td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid #d6dad3}th{color:#6f776f;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+blockquote{margin:6px 0 10px;padding:6px 12px;border-left:3px solid #1f5e3f;background:#fff;font-family:ui-monospace,monospace;font-size:13px;white-space:pre-wrap}
+ul{padding-left:20px;margin:0 0 10px}li{margin-bottom:5px}
+.bad{border-left-color:#9a6212}
+@media(prefers-color-scheme:dark){body{background:#141715;color:#e6e9e3}a{color:#6fbf8e}blockquote{background:#1d211e;border-left-color:#6fbf8e}.bad{border-left-color:#e0a04a}th,td{border-color:#2e3430}th,.m{color:#8f978f}}
+</style>
+<main>
+<p class=m><a href="index.html">← Back to the comparison</a></p>
+<h1>Meta-review: the session that built this</h1>
+<p class=m>One Claude Code session, 13:19 to 14:25 on 13 Sep 2026. Everything on this site, the repo, the plugin, and the five simulated fellows came out of it. This page is the same kind of artefact the workshop asks you to share, applied to itself.</p>
+
+<h2>By the numbers</h2>
+<table>
+<tr><th>Human messages</th><td class=n>30</td><td>about a third typed while Claude was still mid-task</td></tr>
+<tr><th>Median human message</th><td class=n>~12 words</td><td>the longest was the pasted brief; most were one line</td></tr>
+<tr><th>Assistant messages</th><td class=n>~300</td><td></td></tr>
+<tr><th>Tool calls</th><td class=n>~140</td><td>file writes, shell, web search, browser, artifact, Vercel</td></tr>
+<tr><th>Wall clock</th><td class=n>66 min</td><td>of a 3-hour cap</td></tr>
+<tr><th>Things built</th><td class=n>7</td><td>task repo, probe + checks, skill, share plugin, comparison generator, live site, 5 simulated runs</td></tr>
+<tr><th>Things thrown away</th><td class=n>2</td><td>a six-field card board, then a web uploader; both replaced by files in a repo</td></tr>
+</table>
+
+<h2>What the human did</h2>
+<p>Almost every human message was a steering move, not a specification. In order:</p>
+<ul>
+<li><b>Set the frame and the constraint.</b> "I'll need to save process logs." Claude started a timestamped log before anything else, and every later decision has a line in it.</li>
+<li><b>Asked for evidence before deciding.</b> "search for best practices first." Eight minutes, five searches, four sources that survived.</li>
+<li><b>Overruled the AI's recommendation.</b> Claude argued for a single-skill verification workshop. "I still think peer-sharing is valuable, particularly for researchers who may tend to work independently." That call set the whole design, and the AI's alternative became the worked example inside it.</li>
+<li><b>Simplified, twice.</b> Claude built a structured card board. "No, simpler. I'd like to allow people to share their skills, upload their logs." Claude built an uploader. "Is there not a simple way…?" The answer was files in a repo.</li>
+<li><b>Named the real comparison.</b> "Compare the process logs and skills in one view? Particularly user input." That one line is the reason the page shows prompts first and replies as dropdowns.</li>
+<li><b>Demanded reusability.</b> "So that each user can just download the claude plugin and it allows sharing?" Turned a script into something installable.</li>
+<li><b>Verified.</b> "verify the code." 28 checks, one of which caught the test author's own wrong expectation.</li>
+<li><b>Tested with users, then more users.</b> "simulate the test run, and share." Then "simulate a few more users." The simulation found a leak in the exercise: the data generator's docstring spoiled the answer.</li>
+<li><b>Caught a consent gap.</b> "Does the plugin allow selecting which skills to share or confirm with user?" It didn't. Now it previews, asks, and asks again before pushing.</li>
+<li><b>Fixed what only a human sees.</b> "The cards jut off the right of the window."</li>
+</ul>
+
+<h2>Where the AI was wrong, and how it surfaced</h2>
+<table>
+<tr><th>Mistake</th><th>Caught by</th></tr>
+<tr><td>Predicted the probe would learn negation; the first run said template. Later runs said negation and length.</td><td>Running the check instead of trusting the hypothesis. Both readings kept on the page.</td></tr>
+<tr><td>Recommended against the human's design.</td><td>The human. The design was better for this cohort; the AI's idea survived as content.</td></tr>
+<tr><td>Over-built the sharing mechanism, twice.</td><td>The human, with one-line prompts.</td></tr>
+<tr><td>Copied every skill silently, no consent.</td><td>The human asking one question.</td></tr>
+<tr><td>Introduced a variable-shadowing bug while adding reply capture.</td><td>The next run crashed. Fixed in a minute.</td></tr>
+<tr><td>Wrote a test with a wrong expected count.</td><td>The test failing; the code was right.</td></tr>
+<tr><td>Wrote a spoiler into the exercise's data generator.</td><td>Five simulated fellows all "finding" the confound suspiciously fast.</td></tr>
+<tr><td>Missed the human's mid-turn messages in the log extractor.</td><td>Writing this page and noticing the best prompts were absent.</td></tr>
+<tr><td>Estimated timestamps instead of reading the clock.</td><td>A <code>date</code> call. Log corrected.</td></tr>
+</table>
+
+<h2>The pattern, if you want to copy it</h2>
+<ul>
+<li><b>Log from minute one.</b> The log is what makes the rest reviewable, including this page.</li>
+<li><b>Let the AI argue, then decide yourself.</b> The AI's case was reasonable and evidence-backed. It was still the wrong frame for this cohort, and only the human could know that.</li>
+<li><b>Say "simpler" early and often.</b> Three of the most valuable messages were under ten words.</li>
+<li><b>Verify, then simulate.</b> Unit-level checks caught code bugs. Simulated users caught a design bug the checks could not see.</li>
+<li><b>Compare what people typed.</b> Six runs, same model, same data, one caveat versus five checks. The difference was the prompt. See the <a href="index.html">comparison</a>.</li>
+</ul>
+
+<h2>Caveats</h2>
+<p>The five "fellows" are Claude sessions, not people. All of them could read the docstring that spoiled the confound before it was removed. One had the sanity-check skill available and used it. The human and the AI on this page are the same pair that built the page; take the self-assessment accordingly, and check the <a href="logs/justin/2026-09-13-session.md">raw prompts</a> yourself.</p>
+</main>
