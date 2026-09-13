@@ -41,7 +41,8 @@ Then, in any project, at the end of a session:
 ```
 It posts **only what you typed** and Claude's text replies (no tool output, no file contents) plus your
 `.claude/skills/*/SKILL.md` to `exchange/logs/<you>/` and `exchange/skills/<you>/`, asks you to confirm
-nothing private is in the log, pushes, and rebuilds `exchange/COMPARISON.html`: one column per person,
+nothing private is in the log, pushes, and rebuilds the comparison. Every push redeploys it to
+**https://lasr-exchange.vercel.app**: one column per person,
 prompts in order, Claude's reply as a dropdown under each, prompts that mention a check highlighted.
 
 Inside this repo you can skip the plugin: `uv run python exchange/share.py <your-name> --push`.

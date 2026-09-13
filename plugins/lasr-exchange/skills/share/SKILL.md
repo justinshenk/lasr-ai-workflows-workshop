@@ -14,4 +14,4 @@ Share $ARGUMENTS's session input and skills to the cohort exchange.
 2. Show the user the first three and last three lines of the new log file. Ask them to confirm nothing
    private is in it (API keys, unpublished results). Do not push until they say yes.
 3. On yes, re-run the same command with `--push`.
-4. Tell them: open `~/lasr-exchange/exchange/COMPARISON.html` for one column per person.
+4. Tell them: the push redeploys https://lasr-exchange.vercel.app (about a minute); locally, `~/lasr-exchange/exchange/COMPARISON.html`.
