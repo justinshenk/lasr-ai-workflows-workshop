@@ -1,9 +1,4 @@
-"""Builds the sentiment dataset for the workshop task.
-
-Deliberately mirrors how an AI-generated dataset often looks: templated,
-and with negatives frequently expressed via negation. Whether that matters
-for a "sentiment direction" is exactly what the sanity-check step should test.
-"""
+"""Builds the sentiment dataset for the workshop task: data/train.json and data/ood.json."""
 import json, random
 random.seed(0)
 
@@ -18,7 +13,6 @@ rows = []
 for n in NOUNS:
     for _ in range(2):
         rows.append({"text": f"The {n} was {random.choice(POS)}.", "label": 1})
-        # 70% of negatives use negation of a positive adjective
         if random.random() < 0.7:
             rows.append({"text": f"The {n} was not {random.choice(POS)}.", "label": 0})
         else:
@@ -26,7 +20,7 @@ for n in NOUNS:
 random.shuffle(rows)
 json.dump(rows, open("data/train.json", "w"), indent=1)
 
-# Out-of-distribution check set: hand-written, negation decorrelated from sentiment.
+# Hand-written sentences.
 ood = [
     {"text": "I can't recommend this place enough.", "label": 1},
     {"text": "Not a single dull moment in the whole show.", "label": 1},
