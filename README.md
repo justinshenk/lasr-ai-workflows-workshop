@@ -26,3 +26,22 @@ and `load_split(path)` -> `(texts, labels)`. GPT-2 runs on CPU in seconds.
 
 Timebox is strict: 10 minutes. A partial result with an honest card beats a
 perfect probe with no card.
+
+## Sharing and comparing (the exchange)
+
+Install the plugin once (after this repo is on GitHub; replace the org/repo):
+```
+/plugin marketplace add <org>/<repo>
+/plugin install lasr-exchange@lasr-exchange
+export LASR_EXCHANGE_REPO=git@github.com:<org>/<repo>.git   # where /share pushes
+```
+Then, in any project, at the end of a session:
+```
+/share <your-name>
+```
+It posts **only what you typed** and Claude's text replies (no tool output, no file contents) plus your
+`.claude/skills/*/SKILL.md` to `exchange/logs/<you>/` and `exchange/skills/<you>/`, asks you to confirm
+nothing private is in the log, pushes, and rebuilds `exchange/COMPARISON.html`: one column per person,
+prompts in order, Claude's reply as a dropdown under each, prompts that mention a check highlighted.
+
+Inside this repo you can skip the plugin: `uv run python exchange/share.py <your-name> --push`.

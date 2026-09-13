@@ -64,8 +64,8 @@ def main():
         pairs = turn_pairs(sess)
         out = logdir / f"{datetime.date.today()}-session.md"
         blocks = []
-        for u, a in pairs:
-            blocks.append("> " + u.replace("\n", "\n> ") + ("\n\n⏺ " + a.replace("\n", "\n⏺ ") if a else ""))
+        for u, reply in pairs:
+            blocks.append("> " + u.replace("\n", "\n> ") + ("\n\n⏺ " + reply.replace("\n", "\n⏺ ") if reply else ""))
         out.write_text(f"# {name} — session {sess.stem[:8]} in {project.name}: what I typed (>) and Claude's text replies (⏺)\n\n"
                        + "\n\n".join(blocks) + "\n")
         print(f"wrote {out} ({len(pairs)} user turns, with Claude's text replies). Review it before pushing.")
