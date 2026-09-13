@@ -3,7 +3,7 @@
 | Person | Prompts | Median words / prompt | Prompts mentioning a check | Questions asked | Skills shared |
 |---|---|---|---|---|---|
 | hana | 2 | 48 | 2 | 1 | 0 |
-| justin | 30 | 14 | 4 | 6 | 2 |
+| justin | 30 | 14 | 4 | 5 | 2 |
 | priya | 1 | 78 | 1 | 0 | 0 |
 | quinn | 1 | 32 | 0 | 0 | 0 |
 | sam | 1 | 58 | 1 | 0 | 0 |
