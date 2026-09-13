@@ -3,6 +3,7 @@
 | Person | Prompts | Median words / prompt | Prompts mentioning a check | Questions asked | Skills shared |
 |---|---|---|---|---|---|
 | justin | 7 | 18 | 1 | 3 | 2 |
+| sim-fellow | 1 | 117 | 1 | 0 | 0 |
 
 ## justin
 
@@ -43,3 +44,10 @@
       true=pos pred=neg  The staff couldn't have been kinder.
       true=pos pred=neg  Honestly, it exceeded
 ```
+
+
+## sim-fellow
+
+**User input, in order** (`2026-09-13-session.md`); Claude's reply indented under each
+1. I'm a research fellow doing a 10-minute exercise in this repo. Task: train a linear probe that separates positive from negative sentences using GPT-2 layer-6 activations, and report held-out accuracy. Then do one sanity check that convinces you the direction is about sentiment and not something else
+   > I'll look at extract.py and the data files, write fellow_probe.py, run it, and report.  Done. Script is `fellow_probe.py`, run with `HF_HUB_OFFLINE=1 uv run python fellow_probe.py`.  **Held-out accuracy is perfect on the in-distribution data, but the direction is not sentiment.** It is mostly a "con

@@ -106,4 +106,30 @@ There are two genuinely simple ways, and both beat the custom page.
 
 **The custom page** stays published either way. I&#x27;d drop it from the plan and mention it in Part 3 as something I built and then simplified away, which is a fair thing for the graders to see.
 
-Tell me which one. For the repo, say whether it should be public or private, and whether the name `lasr-ai-workflows-workshop` is fine, and I&#x27;ll create it, push, and update the plan and draft to point at it.</pre></details></li><li><div class=u>then to compare the process logs and skills in one view? particularly user input</div><details><summary>Claude's reply · 69 words</summary><pre>That&#x27;s the real need: put everyone&#x27;s prompts side by side. The most revealing comparison is what each person typed, not what the model produced. A small script in the repo can do that: read every log in `exchange/logs/`, pull out the user turns, list each person&#x27;s skills, and render one comparison page. Let me check the real Claude Code log format first so the parser works on actual exports.</pre></details></li></ol></section></div>
+Tell me which one. For the repo, say whether it should be public or private, and whether the name `lasr-ai-workflows-workshop` is fine, and I&#x27;ll create it, push, and update the plan and draft to point at it.</pre></details></li><li><div class=u>then to compare the process logs and skills in one view? particularly user input</div><details><summary>Claude's reply · 69 words</summary><pre>That&#x27;s the real need: put everyone&#x27;s prompts side by side. The most revealing comparison is what each person typed, not what the model produced. A small script in the repo can do that: read every log in `exchange/logs/`, pull out the user turns, list each person&#x27;s skills, and render one comparison page. Let me check the real Claude Code log format first so the parser works on actual exports.</pre></details></li></ol></section><section><h2>sim-fellow</h2><p class=m>1 prompts · median 117 words · 1 mention a check</p><h3>Skills</h3><ul class=sk><li class=m>none yet</li></ul><h3>User input, in order</h3><ol class=pr><li class=chk><div class=u>I&#x27;m a research fellow doing a 10-minute exercise in this repo. Task: train a linear probe that separates positive from negative sentences using GPT-2 layer-6 activations, and report held-out accuracy. Then do one sanity check that convinces you the direction is about sentiment and not something else. Use data/train.json (60 labelled sentences, split however you like) and data/ood.json (16 hand-written sentences; use it or don&#x27;t). extract.py has activations(texts, layer=6) -&gt; [N,768] and load_split(path) -&gt; (texts, labels). GPT-2 runs on CPU in seconds; run with HF_HUB_OFFLINE=1 uv run python. Write your script as fellow_probe.py. Do NOT open probe.py or worked_example/ (that&#x27;s the answer key). Keep it quick and tell me the accuracy and what your sanity check showed.</div><details><summary>Claude's reply · 403 words</summary><pre>I&#x27;ll look at extract.py and the data files, write fellow_probe.py, run it, and report.
+
+Done. Script is `fellow_probe.py`, run with `HF_HUB_OFFLINE=1 uv run python fellow_probe.py`.
+
+**Held-out accuracy is perfect on the in-distribution data, but the direction is not sentiment.** It is mostly a &quot;contains the word *not*&quot; detector. I would grade the sentiment claim as **unverified**.
+
+Setup: I deduplicated train.json from 60 rows to 55 unique sentences, since five sentences appear twice and would leak across any split. Probe is standardized logistic regression, C=0.1, on layer-6 mean-pooled activations.
+
+| Evaluation | Accuracy |
+|---|---|
+| Leave-one-out on train.json | 1.000 (55/55) |
+| 70/30 stratified split | 1.000 (17/17) |
+| Shuffled labels, 10 perms, LOO | mean 0.507, max 0.600 |
+| OOD (data/ood.json) | 0.562 (9/16) |
+| &quot;Not&quot;-rule baseline on train.json | 0.800 |
+
+The shuffled control says the in-distribution number is real signal, not noise. The problem is what the signal is.
+
+**Sanity check findings.** The training negatives are templated as &quot;The X was not ADJ&quot; for 19 of 30 rows, and no positive contains &quot;not&quot;. Three tests all point the same way:
+
+- **OOD failures**: the probe got all 8 negatives right and only 1 of 8 positives. The seven misses are all upbeat sentences phrased with negation or unusual syntax (&quot;can&#x27;t recommend enough&quot;, &quot;Not a single dull moment&quot;, &quot;couldn&#x27;t have been kinder&quot;). It scored below a coin flip on positives.
+- **Held-out lexical negatives**: training with only &quot;not&quot; negatives and testing on the 11 negatives that use a bad adjective (&quot;dull&quot;, &quot;terrible&quot;, &quot;dreadful&quot;) gave 0/11. The probe learned nothing from the training negatives that transfers to a negative adjective.
+- **Counterfactuals**: &quot;The film was not dull&quot; and five similar &quot;not + bad adjective&quot; sentences were all called negative, 6/6. A sentiment direction should lean positive on these.
+
+The simplest non-target explanation, the &quot;not&quot; token, accounts for the result. The full-data probe does beat the pure &quot;not&quot; rule on OOD (0.56 vs 0.38) and does classify plain-adjective negatives correctly when trained on them, so some lexical polarity is mixed in. But the dominant axis of the fitted direction is negation, and a 1.000 held-out number here would be misleading to report as &quot;sentiment accuracy&quot;.
+
+If you want a probe that actually tracks sentiment, the training set needs positives with negation and negatives without it, so the two features decorrelate. That is a data fix, not a probe fix.</pre></details></li></ol></section></div>
