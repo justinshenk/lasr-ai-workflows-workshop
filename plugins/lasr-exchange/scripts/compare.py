@@ -129,6 +129,7 @@ code{{background:#f0f2ec;padding:1px 4px;border-radius:3px}}
 <h1>Exchange comparison</h1><p class=lede>One column per person. Green bar = the prompt mentions a check, test, control or baseline. Open "Claude's reply" under any prompt. Regenerate with <code>python exchange/compare.py</code>.</p>
 <div class=grid>{''.join(cols)}</div>"""
     (ROOT / "COMPARISON.html").write_text(page)
+    (ROOT / "index.html").write_text(page)   # so a static host serves it at /
     print(f"{len(people)} people → {ROOT/'COMPARISON.md'}, {ROOT/'COMPARISON.html'}")
 
 if __name__ == "__main__":
