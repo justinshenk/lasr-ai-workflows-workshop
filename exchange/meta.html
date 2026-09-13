@@ -48,6 +48,7 @@ ul{padding-left:20px;margin:0 0 10px}li{margin-bottom:5px}
 <p class=m>Severity: <span class="sev high">high</span> would have shipped a wrong research claim or exposed private data · <span class="sev medium">medium</span> a broken tool or an invalid exercise · <span class="sev low">low</span> wasted time or cosmetic.</p>
 <table>
 <tr><th>Severity</th><th>Mistake</th><th>Caught by</th></tr>
+<tr><td><span class="sev high">high</span></td><td>Published the human's session log with the pasted work-test brief in it, then made the repo public.</td><td>The human, six minutes later. Repo re-privated, text redacted, git history rewritten, old deployments purged.</td></tr>
 <tr><td><span class="sev high">high</span></td><td>Predicted the probe would learn negation; the first run said template. Later runs said negation and length.</td><td>Running the check instead of trusting the hypothesis. Both readings kept on the page.</td></tr>
 <tr><td><span class="sev high">high</span></td><td>Copied every skill silently, no consent.</td><td>The human asking one question.</td></tr>
 <tr><td><span class="sev medium">medium</span></td><td>Introduced a variable-shadowing bug while adding reply capture.</td><td>The next run crashed. Fixed in a minute.</td></tr>
@@ -58,7 +59,7 @@ ul{padding-left:20px;margin:0 0 10px}li{margin-bottom:5px}
 <tr><td><span class="sev low">low</span></td><td>Wrote a test with a wrong expected count.</td><td>The test failing; the code was right.</td></tr>
 <tr><td><span class="sev low">low</span></td><td>Estimated timestamps instead of reading the clock.</td><td>A <code>date</code> call. Log corrected.</td></tr>
 </table>
-<p><b>Sorting by severity says the important thing.</b> All three high-severity errors were caught by a human asking for a check, not by the tool. The tool caught its own medium ones by crashing or failing a test. Nothing caught the high ones except someone deciding to look.</p>
+<p><b>Sorting by severity says the important thing.</b> All four high-severity errors were caught by a human asking for a check, or noticing, not by the tool. The tool caught its own medium ones by crashing or failing a test. Nothing caught the high ones except someone deciding to look.</p>
 
 <h2>The pattern, if you want to copy it</h2>
 <ul>
